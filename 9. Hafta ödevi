@@ -1,0 +1,58 @@
+// DFS, BFS uygulaması
+
+#include <stdio.h>
+
+int graph[6][6] = {
+    {0, 1, 0, 1, 0, 0},
+    {1, 0, 1, 0, 0, 0},
+    {0, 1, 0, 1, 1, 0},
+    {1, 0, 1, 0, 0, 1},
+    {0, 0, 1, 0, 0, 1},
+    {0, 0, 0, 1, 1, 0}
+};
+
+int visitedDFS[6] = {0};
+
+void DFS(int start, int total) {
+    visitedDFS[start] = 1;
+    printf("%d ", start);
+
+    for (int i = 0; i < total; i++) {
+        if (graph[start][i] == 1 && visitedDFS[i] == 0) {
+            DFS(i, total);
+        }
+    }
+}
+
+void BFS(int start, int total) {
+    int queue[10];
+    int front = 0, rear = 0;
+    int visitedBFS[6] = {0};
+
+    visitedBFS[start] = 1;
+    queue[rear++] = start;
+
+    while (front < rear) {
+        int current = queue[front++];
+        printf("%d ", current);
+
+        for (int i = 0; i < total; i++) {
+            if (graph[current][i] == 1 && visitedBFS[i] == 0) {
+                visitedBFS[i] = 1;
+                queue[rear++] = i;
+            }
+        }
+    }
+}
+
+int main(void) {
+    int nodes = 6;
+
+    printf("DFS Traversal: ");
+    DFS(0, nodes);
+
+    printf("\nBFS Traversal: ");
+    BFS(0, nodes);
+
+    return 0;
+}
