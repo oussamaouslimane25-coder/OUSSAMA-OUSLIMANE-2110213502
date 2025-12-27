@@ -1,0 +1,102 @@
+// double linked list
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct DNode {
+    int data;
+    struct DNode *next;
+    struct DNode *prev;
+};
+
+struct DNode* createNode(int value) {
+    struct DNode* node = (struct DNode*)malloc(sizeof(struct DNode));
+    node->data = value;
+    node->next = NULL;
+    node->prev = NULL;
+    return node;
+}
+
+void insertAtPosition(struct DNode** head, int value, int position) {
+    struct DNode* newNode = createNode(value);
+
+    if (position == 0) {
+        newNode->next = *head;
+        if (*head != NULL)
+            (*head)->prev = newNode;
+        *head = newNode;
+        return;
+    }
+
+    struct DNode* current = *head;
+    for (int i = 0; i < position - 1 && current != NULL; i++)
+        current = current->next;
+
+    if (current == NULL)
+        return;
+
+    newNode->next = current->next;
+    newNode->prev = current;
+
+    if (current->next != NULL)
+        current->next->prev = newNode;
+
+    current->next = newNode;
+}
+
+void deleteFromPosition(struct DNode** head, int position) {
+    if (*head == NULL)
+        return;
+
+    struct DNode* current = *head;
+
+    if (position == 0) {
+        *head = current->next;
+        if (*head != NULL)
+            (*head)->prev = NULL;
+        free(current);
+        return;
+    }
+
+    for (int i = 0; i < position && current != NULL; i++)
+        current = current->next;
+
+    if (current == NULL)
+        return;
+
+    if (current->next != NULL)
+        current->next->prev = current->prev;
+
+    if (current->prev != NULL)
+        current->prev->next = current->next;
+
+    free(current);
+}
+
+void displayList(struct DNode* head) {
+    struct DNode* temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main(void) {
+    struct DNode* head = NULL;
+
+    insertAtPosition(&head, 15, 0);
+    insertAtPosition(&head, 25, 1);
+    insertAtPosition(&head, 35, 2);
+    insertAtPosition(&head, 45, 3);
+
+    printf("Doubly Linked List:\n");
+    displayList(head);
+
+    deleteFromPosition(&head, 2);
+
+    printf("After Deletion:\n");
+    displayList(head);
+
+    return 0;
+}
