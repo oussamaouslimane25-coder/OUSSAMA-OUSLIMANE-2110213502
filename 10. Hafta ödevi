@@ -1,0 +1,39 @@
+// Tree creation using array
+
+#include <stdio.h>
+
+/*
+ Index Rule:
+   Left Child  = 2*i + 1
+   Right Child = 2*i + 2
+*/
+
+/*
+    Binary Tree (Array Representation):
+
+             21
+           /    \
+         10      2
+        /  \    / \
+      13   50  3   2
+*/
+
+void preorder(int tree[], int index, int size) {
+    if (index >= size || tree[index] == -1)
+        return;
+
+    printf("%d ", tree[index]);
+    preorder(tree, 2 * index + 1, size);
+    preorder(tree, 2 * index + 2, size);
+}
+
+int main(void) {
+    /* Tree stored in array */
+    int tree[7] = {21, 10, 2, 13, 50, 3, 2};
+    int size = 7;
+
+    printf("Pre-order Traversal: ");
+    preorder(tree, 0, size);
+
+    return 0;
+}
