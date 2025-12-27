@@ -10,15 +10,15 @@ It uses a stack data structure to temporarily store operators while the postfix 
 2. How the Algorithm Works
 
 The conversion follows these steps:
-.The expression is read from left to right.
-..If the current symbol is an operand (letter or number), it is added directly to the output.
-...If the symbol is an operator (+, -, *, /):
+-The expression is read from left to right.
+-If the current symbol is an operand (letter or number), it is added directly to the output.
+-If the symbol is an operator (+, -, *, /):
 Operators already in the stack with higher or equal precedence are popped and added to the output.
 The current operator is then pushed onto the stack.
-....If the symbol is a left parenthesis (, it is pushed onto the stack.
-.....If the symbol is a right parenthesis ):
+-If the symbol is a left parenthesis (, it is pushed onto the stack.
+-If the symbol is a right parenthesis ):
 Operators are popped from the stack and added to the output until a left parenthesis ( is found.
-......The left parenthesis is removed from the stack.
+-The left parenthesis is removed from the stack.
 After the entire expression is read, any remaining operators in the stack are popped and added to the output.
 
 3. Example 1: a+b*c
