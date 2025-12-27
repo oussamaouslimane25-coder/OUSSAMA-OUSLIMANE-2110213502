@@ -1,0 +1,28 @@
+
+// Tower of Hanoi 
+
+#include <stdio.h>
+
+
+
+void hanoiSolution(int disks, char source, char destination, char auxiliary) {
+    if (disks == 0)
+        return;
+
+    hanoiSolution(disks - 1, source, auxiliary, destination);
+
+    printf("Move disk %d from %c to %c\n", disks, source, destination);
+
+    hanoiSolution(disks - 1, auxiliary, destination, source);
+}
+
+int main(void) {
+    int totalDisks = 3;
+
+    printf("Tower of Hanoi Solution\n");
+    printf("Number of disks: %d\n\n", totalDisks);
+
+    hanoiSolution(totalDisks, 'A', 'C', 'B');
+
+    return 0;
+}
