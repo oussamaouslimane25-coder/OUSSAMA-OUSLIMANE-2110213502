@@ -7,7 +7,7 @@ void swap(int *a, int *b) {
     *a = *b;
     *b = temp;
 }
-
+ 
 void buildMaxHeap(int heap[], int size, int index) {
     int largest = index;
     int left = 2 * index + 1;
