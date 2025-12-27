@@ -1,0 +1,68 @@
+//  Max Heap and Min Heap Construction
+
+#include <stdio.h>
+
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void buildMaxHeap(int heap[], int size, int index) {
+    int largest = index;
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+
+    if (left < size && heap[left] > heap[largest])
+        largest = left;
+
+    if (right < size && heap[right] > heap[largest])
+        largest = right;
+
+    if (largest != index) {
+        swap(&heap[index], &heap[largest]);
+        buildMaxHeap(heap, size, largest);
+    }
+}
+
+void buildMinHeap(int heap[], int size, int index) {
+    int smallest = index;
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+
+    if (left < size && heap[left] < heap[smallest])
+        smallest = left;
+
+    if (right < size && heap[right] < heap[smallest])
+        smallest = right;
+
+    if (smallest != index) {
+        swap(&heap[index], &heap[smallest]);
+        buildMinHeap(heap, size, smallest);
+    }
+}
+
+int main(void) {
+    int maxHeapArray[] = {25, 14, 30, 8, 19, 4, 22};
+    int n = 7;
+
+    for (int i = n / 2 - 1; i >= 0; i--)
+        buildMaxHeap(maxHeapArray, n, i);
+
+    printf("Max Heap Result: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", maxHeapArray[i]);
+    printf("\n");
+
+    int minHeapArray[] = {25, 14, 30, 8, 19, 4, 22};
+
+    for (int i = n / 2 - 1; i >= 0; i--)
+        buildMinHeap(minHeapArray, n, i);
+
+    printf("Min Heap Result: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", minHeapArray[i]);
+    printf("\n");
+
+    return 0;
+}
