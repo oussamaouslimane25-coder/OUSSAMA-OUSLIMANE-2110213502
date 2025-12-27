@@ -1,0 +1,95 @@
+// Circular Linked List
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = newNode;   // circular link
+    return newNode;
+}
+
+void insertEnd(struct Node** head, int value) {
+    struct Node* newNode = createNode(value);
+
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    struct Node* temp = *head;
+    while (temp->next != *head)
+        temp = temp->next;
+
+    temp->next = newNode;
+    newNode->next = *head;
+}
+
+void deleteAtPosition(struct Node** head, int position) {
+    if (*head == NULL)
+        return;
+
+    struct Node* temp = *head;
+
+    if (position == 0) {
+        if (temp->next == *head) {
+            free(temp);
+            *head = NULL;
+            return;
+        }
+
+        struct Node* last = *head;
+        while (last->next != *head)
+            last = last->next;
+
+        *head = temp->next;
+        last->next = *head;
+        free(temp);
+        return;
+    }
+
+    for (int i = 0; i < position - 1; i++)
+        temp = temp->next;
+
+    struct Node* del = temp->next;
+    temp->next = del->next;
+    free(del);
+}
+
+void display(struct Node* head) {
+    if (head == NULL)
+        return;
+
+    struct Node* temp = head;
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while (temp != head);
+
+    printf("\n");
+}
+
+int main(void) {
+    struct Node* head = NULL;
+
+    insertEnd(&head, 21);
+    insertEnd(&head, 10);
+    insertEnd(&head, 213);
+    insertEnd(&head, 502);
+
+    printf("Circular Linked List:\n");
+    display(head);
+
+    deleteAtPosition(&head, 2);
+
+    printf("After Deletion:\n");
+    display(head);
+
+    return 0;
+}
