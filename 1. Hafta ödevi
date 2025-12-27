@@ -34,10 +34,10 @@ void convertToSparse(int matrix[4][4]) {
 
 int main(void) {
     int matrix[4][4] = {
-        {0, 0, 3, 0},
-        {0, 0, 0, 0},
-        {0, 5, 0, 0},
-        {0, 0, 0, 0}
+        {0, 7, 0, 0},
+        {0, 0, 12, 0},
+        {0, 0, 0, 9},
+        {4, 0, 0, 0}
     };
 
     convertToSparse(matrix);
