@@ -40,19 +40,3 @@ int main(void) {
     return 0;
 }
 
-How are clusters found?
-
-Clusters are identified by checking which nodes are connected to each other.
-In this program, Depth First Search (DFS) is used to visit all nodes that can be reached from a starting node.
-All nodes visited during one DFS call form one cluster.
-
-How are clusters separated?
-
-Clusters are separated when there is no connection (edge) between their nodes.
-In the adjacency matrix:
-
-1 means there is a connection
-
-0 means there is no connection
-
-If two nodes cannot be reached through DFS, they belong to different clusters.
